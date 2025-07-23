@@ -1,18 +1,22 @@
-import { useState } from 'react'
-// import './App.css'
-import Footer from './components/Footer';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import AppRouter from './routes/AppRouter';
 import Header from './components/Header';
-import ProductCard from './components/ProductCard';
-
+import Footer from './components/Footer';
 
 function App() {
 
   return (
-    <div class="flex flex-col min-h-screen bg-base-100">
-      <Header/>
-      <ProductCard/>
-      <Footer/>
+    <>
+    <div className="flex flex-col min-h-screen bg-base-100">
+      <BrowserRouter>
+        <Header/>
+        <AppRouter />
+        <Footer/>
+      </BrowserRouter>
     </div>
+    </>
+
   );
 }
 
