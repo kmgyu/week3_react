@@ -11,7 +11,10 @@ function App() {
     <div className="flex flex-col min-h-screen bg-base-100">
       <BrowserRouter>
         <Header/>
-        <AppRouter />
+        {/* 가운데 정렬 영역 */}
+        <main className="flex-grow flex justify-center items-start p-4">
+            <AppRouter />
+        </main>
         <Footer/>
       </BrowserRouter>
     </div>
