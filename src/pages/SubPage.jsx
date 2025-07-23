@@ -37,7 +37,7 @@ function SubPage() {
             <div className="stat-figure text-secondary">
               <div className="avatar online">
                 <div className="w-16 rounded-full">
-                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="아바타" />
+                  <img src="https://sitem.ssgcdn.com/34/86/00/item/1000710008634_i1_550.jpg" alt="아바타" />
                 </div>
               </div>
             </div>

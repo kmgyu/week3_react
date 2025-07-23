@@ -4,9 +4,9 @@ import ProductCard from '../components/ProductCard';
 function HomePage() {
   // 상품 데이터 (실제 프로젝트에서는 API에서 가져옴)
   const productsData = [
-    { id: 'prod1', name: '고급 키보드', price: 85000, imageUrl: 'https://via.placeholder.com/400x250/61DAFB/FFFFFF?text=상품+A' },
-    { id: 'prod2', name: '무선 마우스', price: 32000, imageUrl: 'https://via.placeholder.com/400x250/FF6347/FFFFFF?text=상품+B' },
-    { id: 'prod3', name: '초고속 SSD', price: 120000, imageUrl: 'https://via.placeholder.com/400x250/3CB371/FFFFFF?text=상품+C' },
+    { id: 'prod1', name: '고급 키보드', price: 85000, imageUrl: 'https://sitem.ssgcdn.com/34/86/00/item/1000710008634_i1_550.jpg' },
+    { id: 'prod2', name: '무선 마우스', price: 32000, imageUrl: 'https://sitem.ssgcdn.com/34/86/00/item/1000710008634_i1_550.jpg' },
+    { id: 'prod3', name: '초고속 SSD', price: 120000, imageUrl: 'https://sitem.ssgcdn.com/34/86/00/item/1000710008634_i1_550.jpg' },
   ];
 
   return (

@@ -1,4 +1,5 @@
 import React from 'react';
+import '@/styles/style.css';
 
 function ProductCard({ product }) {
   const { name, price, imageUrl } = product;
