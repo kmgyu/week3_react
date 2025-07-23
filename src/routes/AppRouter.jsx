@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from '@/pages/HomePage';
 import SubPage from '@/pages/SubPage';
 import Login from '@/pages/Login';
-import OrderPage from '../pages/Order';
+import OrderPage from '.@/pages/Order';
 
 function AppRouter() {
   return (
