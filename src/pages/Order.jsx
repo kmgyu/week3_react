@@ -1,77 +1,39 @@
-import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { submitOrder } from '@/stores/slices/orderSlice';
 import { useNavigate } from 'react-router-dom';
 
 function OrderPage() {
-  const [qty1, setQty1] = useState(1);
-  const [qty2, setQty2] = useState(1);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const increaseQty1 = () => setQty1(prev => prev + 1);
-  const decreaseQty1 = () => setQty1(prev => (prev > 1 ? prev - 1 : 1));
+  const pendingCart = useSelector(state => state.order.pendingCart);
+  const products = useSelector(state => state.products.products);
+  const userId = useSelector(state => state.auth.user?.uid); // Firebase 인증 UID
 
-  const increaseQty2 = () => setQty2(prev => prev + 1);
-  const decreaseQty2 = () => setQty2(prev => (prev > 1 ? prev - 1 : 1));
+  const items = Object.entries(pendingCart).map(([productId, quantity]) => {
+    const product = products[productId];
+    return {
+      productId,
+      name: product.name,
+      price: product.price,
+      quantity,
+    };
+  });
+
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(submitOrder({ userId, items, total }));
     alert('주문이 완료되었습니다!');
     navigate('/');
   };
 
   return (
-    <section className="container mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-8">주문하기</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="space-y-6">
-
-          {/* 상품 1 */}
-          <div className="card bg-base-200 shadow p-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h2 className="text-lg font-semibold">상품 1</h2>
-                <p className="text-sm text-gray-500">₩10,000</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <button type="button" className="btn btn-sm" onClick={decreaseQty1}>-</button>
-                <input
-                  type="number"
-                  value={qty1}
-                  readOnly
-                  className="input input-bordered input-sm w-16 text-center"
-                />
-                <button type="button" className="btn btn-sm" onClick={increaseQty1}>+</button>
-              </div>
-            </div>
-          </div>
-
-          {/* 상품 2 */}
-          <div className="card bg-base-200 shadow p-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h2 className="text-lg font-semibold">상품 2</h2>
-                <p className="text-sm text-gray-500">₩12,000</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <button type="button" className="btn btn-sm" onClick={decreaseQty2}>-</button>
-                <input
-                  type="number"
-                  value={qty2}
-                  readOnly
-                  className="input input-bordered input-sm w-16 text-center"
-                />
-                <button type="button" className="btn btn-sm" onClick={increaseQty2}>+</button>
-              </div>
-            </div>
-          </div>
-
-          {/* 주문 버튼 */}
-          <div className="text-right">
-            <button type="submit" className="btn btn-primary">주문 완료</button>
-          </div>
-
-        </div>
-      </form>
-    </section>
+    <form onSubmit={handleSubmit}>
+      {/* ...상품 출력 및 수량 카드 생략 */}
+      <button type="submit" className="btn btn-primary">주문 완료</button>
+    </form>
   );
 }
 

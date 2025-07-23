@@ -1,17 +1,15 @@
 // src/stores/store.js
 import { configureStore } from '@reduxjs/toolkit';
-import orderReducer from '@/stores/slices/orderSlice';
+import orderReducer from './slices/orderSlice';
+import productsReducer from './slices/productsSlice';
+import authReducer from './slices/authSlice'; // optional
 
 const store = configureStore({
   reducer: {
     order: orderReducer,
+    products: productsReducer,
+    auth: authReducer, // optional
   },
-});
-
-// 상태가 바뀔 때마다 localStorage에 저장
-store.subscribe(() => {
-  const state = store.getState();
-  localStorage.setItem('order', JSON.stringify(state.order));
 });
 
 export default store;

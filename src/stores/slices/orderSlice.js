@@ -1,12 +1,12 @@
 // src/stores/slices/orderSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
-// 로컬스토리지 초기값 불러오기
-const stored = localStorage.getItem('order');
-const initialState = stored ? JSON.parse(stored) : {
+const initialState = {
   pendingCart: {
-    // 예시: productId: quantity
+    abc123: 2,
+    def456: 1,
   },
+  orderHistory: [],
 };
 
 const orderSlice = createSlice({
@@ -15,7 +15,7 @@ const orderSlice = createSlice({
   reducers: {
     increase: (state, action) => {
       const id = action.payload;
-      state.pendingCart[id] = (state.pendingCart[id] || 1) + 1;
+      state.pendingCart[id] = (state.pendingCart[id] || 0) + 1;
     },
     decrease: (state, action) => {
       const id = action.payload;
@@ -23,11 +23,19 @@ const orderSlice = createSlice({
         state.pendingCart[id] -= 1;
       }
     },
-    resetOrder: (state) => {
-      state.items = {};
-    }
+    submitOrder: (state, action) => {
+      const { userId, items, total } = action.payload;
+      state.orderHistory.push({
+        id: crypto.randomUUID(), // 브라우저 지원 가능
+        userId,
+        items,
+        total,
+        createdAt: new Date().toISOString(),
+      });
+      state.pendingCart = {}; // 장바구니 초기화
+    },
   },
 });
 
-export const { increase, decrease, resetOrder } = orderSlice.actions;
+export const { increase, decrease, submitOrder } = orderSlice.actions;
 export default orderSlice.reducer;
