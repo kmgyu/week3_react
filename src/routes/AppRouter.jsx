@@ -3,11 +3,13 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from '@/pages/HomePage';
 import SubPage from '@/pages/SubPage';
+import Login from '@/pages/Login';
 
 function AppRouter() {
   return (
     <Routes>
     <Route path="/" element={<HomePage />} />
+    <Route path="/login" element={<Login/>} />
     <Route path="/subpage" element={<SubPage />} />
     {/* 404 Not Found 페이지 (선택 사항) */}
     <Route path="*" element={
