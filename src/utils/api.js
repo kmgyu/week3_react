@@ -1,4 +1,4 @@
-// src/api/productsAPI.js
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'; // Vite 기준
@@ -25,18 +25,29 @@ export async function fetchProducts() {
  * @param {*} password 
  * @returns 
  */
-export async function fetchSignUp(name, email, password) {
+
+export const fetchSignUp = createAsyncThunk(
+  'auth/fetchSignUp', // redux action type
+  async ({name, email, password}, {rejectWithValue}) => {
     try {
-        const response = await axios.post(`${baseURL}/api/api/signup`, {
-            name: name,
-            email: email,
-            password: password,
-            returnSecureToken: true
+    const response  = await axios.post(`${baseURL}/api/api/signup`, {
+            name,
+            email,
+            password,
         });
-        return response.data;
+    return {token: response.data.uid };
     } catch (error) {
-        console.error('회원가입 중 오류 발생', error);
-        throw error;
+      console.error('회원가입 중 오류 발생', error);
+      return rejectWithValue(error.response?.data?.message || '회원가입 실패');
     }
-}
+
+  }
+);
+// {
+//     try {
+//         = 
+//     } catch (error) {
+
+//     }
+// }
 
