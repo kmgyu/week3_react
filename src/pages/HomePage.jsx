@@ -1,20 +1,27 @@
-import React from 'react';
-import ProductCard from '../components/ProductCard';
+import React, { useEffect, useState } from 'react';
+import ProductCard from '@/components/ProductCard';
+import { fetchProducts } from '@/utils/api';
 
 function HomePage() {
   // 상품 데이터 (실제 프로젝트에서는 API에서 가져옴)
-  const productsData = [
-    { id: 'prod1', name: '고급 키보드', price: 85000, imageUrl: 'https://sitem.ssgcdn.com/34/86/00/item/1000710008634_i1_550.jpg' },
-    { id: 'prod2', name: '무선 마우스', price: 32000, imageUrl: 'https://sitem.ssgcdn.com/34/86/00/item/1000710008634_i1_550.jpg' },
-    { id: 'prod3', name: '초고속 SSD', price: 120000, imageUrl: 'https://sitem.ssgcdn.com/34/86/00/item/1000710008634_i1_550.jpg' },
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState([]);
+
+  useEffect(() => {
+    fetchProducts()
+    .then(data => setProducts(data))
+    .catch(err => console.error(err))
+    .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <p>불러오는 중...</p>;
 
   return (
     <div className="container mx-auto p-6">
       <section className="mb-8">
         <h1 className="text-4xl font-extrabold text-center text-base-content mb-8">인기 상품</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {productsData.map(product => (
+          {products.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
