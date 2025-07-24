@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchSignUp } from '@/utils/api';
 
-const stored = localStorage.getItem('auth');
+const stored = localStorage.getItem('token');
 const initialState = stored
   ? JSON.parse(stored)
   : {
@@ -15,22 +15,28 @@ const initialState = stored
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    loginSuccess: (state, action) => {
-    //   state.isLoggedIn = true;
-    //   state.user = action.payload.user;
-      state.token = action.payload.token;
-    },
-    logout: (state) => {
-    //   state.isLoggedIn = false;
-    //   state.user = null;
-      state.token = null;
-    },
-  },
+  // reducers: {
+  //   loginSuccess: (state, action) => {
+  //   //   state.isLoggedIn = true;
+  //   //   state.user = action.payload.user;
+  //     const token = action.payload.token
+  //     state.token = token;
+  //     console.log(token);
+  //     localStorage.setItem('token', token);
+  //   },
+  //   logout: (state) => {
+  //   //   state.isLoggedIn = false;
+  //   //   state.user = null;
+  //     state.token = null;
+  //   },
+  // },
     extraReducers: (builder) => {
     builder
       .addCase(fetchSignUp.fulfilled, (state, action) => {
-        state.token = action.payload.token;
+        const token = action.payload.token
+        state.token = token;
+        console.log(token);
+        localStorage.setItem('token', token);
       })
       .addCase(fetchSignUp.rejected, (state, action) => {
         state.error = action.payload || '알 수 없는 오류가 발생했습니다.';

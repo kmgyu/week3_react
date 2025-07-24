@@ -35,6 +35,7 @@ export const fetchSignUp = createAsyncThunk(
             email,
             password,
         });
+    console.log(response.data.uid);
     return {token: response.data.uid };
     } catch (error) {
       console.error('회원가입 중 오류 발생', error);
