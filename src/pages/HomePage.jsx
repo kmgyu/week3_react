@@ -6,14 +6,20 @@ function HomePage() {
   // 상품 데이터 (실제 프로젝트에서는 API에서 가져옴)
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchProducts()
     .then(data => setProducts(data))
-    .catch(err => console.error(err))
+    .catch(err =>
+      {console.error(err);
+        setError('상품 목록을 불러오는데 실패했습니다.');
+      }
+    )
     .finally(() => setLoading(false));
   }, []);
 
+  if (error) return <div>{error}</div>;
   if (loading) return <p>불러오는 중...</p>;
 
   return (
