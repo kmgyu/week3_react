@@ -1,10 +1,13 @@
 // import React, { useState } from 'react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchLogin } from '../utils/api';
+import { fetchLogin } from '@/utils/api';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   // TODO : login 및 signup 컴포넌트 화
+  const navigate = useNavigate();
+
   const token = useSelector(state => state.auth.token || null);
   const dispatch = useDispatch();
 
@@ -29,6 +32,12 @@ function Login() {
       alert('로그인 실패: ' + err);
     }
   }
+
+  useEffect(() => {
+    if (token) {
+      navigate('/');
+    }
+  }, [token, navigate])
 
   return (
     <div className="w-full max-w-sm p-6 card bg-base-200 shadow">
