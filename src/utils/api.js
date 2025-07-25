@@ -25,7 +25,6 @@ export async function fetchProducts() {
  * @param {*} password 
  * @returns 
  */
-
 export const fetchSignUp = createAsyncThunk(
   'auth/fetchSignUp', // redux action type
   async ({name, email, password}, {rejectWithValue}) => {
@@ -44,11 +43,22 @@ export const fetchSignUp = createAsyncThunk(
 
   }
 );
-// {
-//     try {
-//         = 
-//     } catch (error) {
 
-//     }
-// }
+export const fetchLogin = createAsyncThunk(
+  'auth/fetchLogin', // redux action type
+  async ({email, password}, {rejectWithValue}) => {
+    try {
+    const response  = await axios.post(`${loginToken}`, {
+            email,
+            password,
+            returnSecureToken: true
+        });
+    console.log(response.data.idToken);
+    return {token: response.data.idToken };
+    } catch (error) {
+      console.error('로그인 중 오류 발생', error);
+      return rejectWithValue(error.response?.data?.message || '로그인 실패');
+    }
 
+  }
+);

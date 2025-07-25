@@ -1,6 +1,7 @@
 // src/stores/slices/authSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchSignUp } from '@/utils/api';
+import { fetchLogin } from '@/utils/api';
 
 const stored = localStorage.getItem('token');
 const initialState = stored
@@ -39,6 +40,15 @@ const authSlice = createSlice({
         localStorage.setItem('token', token);
       })
       .addCase(fetchSignUp.rejected, (state, action) => {
+        state.error = action.payload || '알 수 없는 오류가 발생했습니다.';
+      })
+      .addCase(fetchLogin.fulfilled, (state, action) => {
+        const token = action.payload.token
+        state.token = token;
+        console.log(token);
+        localStorage.setItem('token', token);
+      })
+            .addCase(fetchLogin.rejected, (state, action) => {
         state.error = action.payload || '알 수 없는 오류가 발생했습니다.';
       });
   },
