@@ -1,6 +1,9 @@
 // src/stores/slices/productsSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
+// 원래 용도 : 장바구니
+// 현재? 용도? : 안씀.
+// 미리 캐싱해서 쿠키에 저장해두고 보여주는 형태는 어떨까
 const initialState = {
   products: {
     abc123: {

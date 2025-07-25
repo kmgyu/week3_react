@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '@/components/ProductCard';
 import { fetchProducts } from '@/utils/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { increase, decrease } from '../stores/slices/orderSlice';
 
 function Home() {
   // 상품 데이터 (실제 프로젝트에서는 API에서 가져옴)
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState([]);
   const [error, setError] = useState(null);
+  const [selected, setSelected] = useState([]);
+
+  const pendingCart = useSelector(state => state.order.pendingCart || null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchProducts()
@@ -17,7 +23,32 @@ function Home() {
       }
     )
     .finally(() => setLoading(false));
-  }, []);
+  }, [pendingCart]);
+
+  // useEffect(() => {
+  //   if (!pendingCart) return;
+  //   setSelected((prev) => {
+  //     const added = Object.keys(pendingCart).filter(id => !prev.includes(id));
+  //     return [...prev, ...added];
+  //   });
+  // }, [pendingCart]); 
+  
+  const handleChange = (id) => {
+      setSelected((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((v) => v !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
+      // 상태 계산과 분리된 시점에서 dispatch 실행
+    if (selected.includes(id)) {
+      dispatch(decrease(id));
+    } else {
+      dispatch(increase(id));
+    }
+    // console.log("pending cart in home.jsx", pendingCart);
+  }
 
   if (error) return <div>{error}</div>;
   if (loading) return <p>불러오는 중...</p>;
@@ -28,7 +59,11 @@ function Home() {
         <h1 className="text-4xl font-extrabold text-center text-base-content mb-8">인기 상품</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard
+              key={product.id}
+              product={product}
+                checked={selected.includes(product.id)}
+                onChange={() => handleChange(product.id)}/>
           ))}
         </div>
       </section>
