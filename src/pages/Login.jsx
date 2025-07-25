@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLogin } from '@/utils/api';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
   // TODO : login 및 signup 컴포넌트 화
@@ -61,7 +61,7 @@ function Login() {
       </form>
       <p className="mt-4 text-sm text-center">
         계정이 없으신가요?
-        <a href="signup.html" className="link link-primary">회원가입</a>
+        <Link to="/signup" className="link link-primary">회원가입</Link>
       </p>
     </div>
   );

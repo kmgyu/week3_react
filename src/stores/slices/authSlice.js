@@ -16,7 +16,7 @@ const initialState = stored
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  // reducers: {
+  reducers: {
   //   loginSuccess: (state, action) => {
   //   //   state.isLoggedIn = true;
   //   //   state.user = action.payload.user;
@@ -25,12 +25,14 @@ const authSlice = createSlice({
   //     console.log(token);
   //     localStorage.setItem('token', token);
   //   },
-  //   logout: (state) => {
-  //   //   state.isLoggedIn = false;
-  //   //   state.user = null;
-  //     state.token = null;
-  //   },
-  // },
+    logout: (state) => {
+    //   state.isLoggedIn = false;
+    //   state.user = null;
+      state.token = null;
+      state.cartOwner = null;
+      localStorage.removeItem('token');
+    },
+  },
     extraReducers: (builder) => {
     builder
       .addCase(fetchSignUp.fulfilled, (state, action) => {
@@ -54,5 +56,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginSuccess, logout } = authSlice.actions;
+export const { logout } = authSlice.actions;
+// export const { loginSuccess, logout } = authSlice.actions;
 export default authSlice.reducer;
