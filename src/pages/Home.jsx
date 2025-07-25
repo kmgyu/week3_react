@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductCard from '@/components/ProductCard';
 import { fetchProducts } from '@/utils/api';
 
-function HomePage() {
+function Home() {
   // 상품 데이터 (실제 프로젝트에서는 API에서 가져옴)
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState([]);
@@ -42,4 +42,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Home;

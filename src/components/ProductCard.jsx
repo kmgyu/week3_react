@@ -1,22 +1,30 @@
 import React from 'react';
 import '@/styles/style.css';
 
-function ProductCard({ product }) {
+function ProductCard({ product, checked, onChange }) {
   const { name, price, imageUrl } = product;
   return (
-    // <label> 태그 대신 <div>를 사용하고, 체크박스 기능은 추후 구현
-    <div className="card shadow-lg bg-base-200">
+    <label className="card shadow-lg bordered cursor-pointer">
+      <input
+        type="checkbox"
+        name="products"
+        value={product.id}
+        className="checkbox absolute checkbox-success top-4 left-4"
+        checked={checked}
+        onChange={onChange}
+      />
       <figure>
-        <img src={imageUrl} alt={name} className="object-cover h-48 w-full" />
+        <img
+          src={imageUrl || 'https://via.placeholder.com/300'}
+          alt={name}
+          className="object-cover h-48 w-full"
+        />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{name}</h2>
-        <p>₩{price.toLocaleString()}</p>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary">장바구니</button>
-        </div>
+        <p>₩{price?.toLocaleString() ?? '0'}</p>
       </div>
-    </div>
+    </label>
   );
 }
 
