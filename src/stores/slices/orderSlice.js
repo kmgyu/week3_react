@@ -25,14 +25,15 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     increase: (state, action) => { // insert item & increase
-      const id = action.payload;
-      state.pendingCart[id] = (state.pendingCart[id] || 0) + 1;
+      const {id, name, price} = action.payload;
+      const quantity = (state.pendingCart[id]) ? state.pendingCart[id].quantity : 0
+      state.pendingCart[id] = {id, name, price, "quantity":(quantity) + 1};
       persistOrderState(state);
     },
     decrease: (state, action) => {
-      const id = action.payload;
-      if (state.pendingCart[id] > 0) {
-        state.pendingCart[id] -= 1;
+      const {id, name, price} = action.payload;
+      if (state.pendingCart[id].quantity > 0) {
+        state.pendingCart[id].quantity -= 1;
       }
       persistOrderState(state);
     },

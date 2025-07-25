@@ -33,19 +33,21 @@ function Home() {
   //   });
   // }, [pendingCart]); 
   
-  const handleChange = (id) => {
+  const handleChange = (product) => {
+    const {id, name, price} = product
       setSelected((prev) => {
       if (prev.includes(id)) {
         return prev.filter((v) => v !== id);
       } else {
-        return [...prev, id];
+        console.log(prev);
+        return [...prev, product];
       }
     });
       // 상태 계산과 분리된 시점에서 dispatch 실행
     if (selected.includes(id)) {
-      dispatch(decrease(id));
+      dispatch(decrease(product));
     } else {
-      dispatch(increase(id));
+      dispatch(increase(product));
     }
     // console.log("pending cart in home.jsx", pendingCart);
   }
@@ -63,7 +65,7 @@ function Home() {
               key={product.id}
               product={product}
                 checked={selected.includes(product.id)}
-                onChange={() => handleChange(product.id)}/>
+                onChange={() => handleChange(product)}/>
           ))}
         </div>
       </section>
