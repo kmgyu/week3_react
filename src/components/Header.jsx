@@ -21,6 +21,7 @@ function Header() {
         <div className="container mx-auto px-4 flex justify-between items-center w-full">
           <Link to="/" className="text-2xl font-bold text-primary">goorm shop</Link>
           <div className="flex gap-4">
+            <Link to="/order" className="btn btn-outline btn-sm">장바구니</Link>
             <Link to="/subpage" className="btn btn-outline btn-sm">서브 페이지로 이동</Link>
             <button onClick={handleLogout} className="btn btn-primary btn-sm">
               로그아웃

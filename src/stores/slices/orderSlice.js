@@ -1,27 +1,41 @@
 // src/stores/slices/orderSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  pendingCart: {
-    abc123: 2,
-    def456: 1,
-  },
-  orderHistory: [],
+const stored = localStorage.getItem('order');
+const initialState = stored
+  ? JSON.parse(stored)
+  : {
+    pendingCart: {},
+    orderHistory: [],
+  };
+
+// const initialState = {
+//     pendingCart: {},
+//     orderHistory: [],
+//   };
+
+const persistOrderState = (state) => {
+  const { pendingCart, orderHistory } = state;
+  localStorage.setItem('order', JSON.stringify({ pendingCart, orderHistory }));
 };
+
 
 const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    increase: (state, action) => {
-      const id = action.payload;
-      state.pendingCart[id] = (state.pendingCart[id] || 0) + 1;
+    increase: (state, action) => { // insert item & increase
+      const {id, name, price} = action.payload;
+      const quantity = (state.pendingCart[id]) ? state.pendingCart[id].quantity : 0
+      state.pendingCart[id] = {id, name, price, "quantity":(quantity) + 1};
+      persistOrderState(state);
     },
     decrease: (state, action) => {
-      const id = action.payload;
-      if (state.pendingCart[id] > 1) {
-        state.pendingCart[id] -= 1;
+      const {id, name, price} = action.payload;
+      if (state.pendingCart[id].quantity > 0) {
+        state.pendingCart[id].quantity -= 1;
       }
+      persistOrderState(state);
     },
     submitOrder: (state, action) => {
       const { userId, items, total } = action.payload;
@@ -33,6 +47,7 @@ const orderSlice = createSlice({
         createdAt: new Date().toISOString(),
       });
       state.pendingCart = {}; // 장바구니 초기화
+      persistOrderState(state);
     },
   },
 });

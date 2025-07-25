@@ -1,7 +1,7 @@
 // src/routes/AppRouter.jsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import HomePage from '@/pages/HomePage';
+import Home from '@/pages/Home';
 import SubPage from '@/pages/SubPage';
 import Login from '@/pages/Login';
 import OrderPage from '@/pages/Order';
@@ -9,7 +9,7 @@ import OrderPage from '@/pages/Order';
 function AppRouter() {
   return (
     <Routes>
-    <Route path="/" element={<HomePage />} />
+    <Route path="/" element={<Home />} />
     <Route path="/login" element={<Login/>} />
     <Route path="/subpage" element={<SubPage />} />
     <Route path="/order" element={<OrderPage />} />
