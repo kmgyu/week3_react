@@ -25,13 +25,13 @@ function Home() {
     .finally(() => setLoading(false));
   }, [pendingCart]);
 
-  // useEffect(() => {
-  //   if (!pendingCart) return;
-  //   setSelected((prev) => {
-  //     const added = Object.keys(pendingCart).filter(id => !prev.includes(id));
-  //     return [...prev, ...added];
-  //   });
-  // }, [pendingCart]); 
+  useEffect(() => {
+    if (!pendingCart) return;
+    setSelected((prev) => {
+      const added = Object.keys(pendingCart).filter(id => !prev.includes(id));
+      return [...prev, ...added];
+    });
+  }, [pendingCart]); 
   
   const handleChange = (product) => {
     const {id, name, price} = product
