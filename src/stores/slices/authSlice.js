@@ -37,7 +37,7 @@ const authSlice = createSlice({
         const token = action.payload.token
         state.token = token;
         console.log(token);
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', JSON.stringify({token: token}));
       })
       .addCase(fetchSignUp.rejected, (state, action) => {
         state.error = action.payload || '알 수 없는 오류가 발생했습니다.';
@@ -46,7 +46,7 @@ const authSlice = createSlice({
         const token = action.payload.token
         state.token = token;
         console.log(token);
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', JSON.stringify({token: token}));
       })
             .addCase(fetchLogin.rejected, (state, action) => {
         state.error = action.payload || '알 수 없는 오류가 발생했습니다.';
