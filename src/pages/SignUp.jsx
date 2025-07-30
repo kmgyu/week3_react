@@ -1,10 +1,10 @@
 // import React, { useState } from 'react';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchSignUp } from '../utils/api';
+import { fetchSignUp } from '@/utils/api';
+import { Link } from 'react-router-dom';
 
 function SignUp() {
-  // TODO : login 및 signup 컴포넌트 화
   const token = useSelector(state => state.auth.token || null);
   const dispatch = useDispatch();
 
@@ -33,7 +33,7 @@ function SignUp() {
 
   return (
     <div className="w-full max-w-sm p-6 card bg-base-200 shadow">
-      <h1 className="text-2xl font-bold mb-6 text-center">로그인</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">회원가입</h1>
       <form className="space-y-4" onSubmit={onSubmitHandler}>
         <div>
           <label className="label">
@@ -59,7 +59,7 @@ function SignUp() {
       </form>
       <p className="mt-4 text-sm text-center">
         계정이 있으신가요?
-        <a href="signup.html" className="link link-primary">로그인</a>
+        <Link to="/login" className="link link-primary">로그인</Link>
       </p>
     </div>
   );

@@ -5,12 +5,14 @@ import Home from '@/pages/Home';
 import SubPage from '@/pages/SubPage';
 import Login from '@/pages/Login';
 import OrderPage from '@/pages/Order';
+import SignUp from '@/pages/SignUp';
 
 function AppRouter() {
   return (
     <Routes>
     <Route path="/" element={<Home />} />
     <Route path="/login" element={<Login/>} />
+    <Route path="/signup" element={<SignUp/>} />
     <Route path="/subpage" element={<SubPage />} />
     <Route path="/order" element={<OrderPage />} />
     {/* 404 Not Found 페이지 (선택 사항) */}
