@@ -22,13 +22,40 @@ function SignUp() {
     setName(event.currentTarget.value);
   }
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = async (event) => {
     // 버튼 누를 때 리프레시 막기
     event.preventDefault();
 
     console.log(email, name, password);
-
-    dispatch(fetchSignUp({name, email, password}));
+    try {
+      await dispatch(fetchSignUp({name, email, password}))
+      .unwrap()
+      .then((res)=> {
+        console.log(res);
+        alert('로그인 성공!');
+      })
+      .catch((err) => {
+        alert(err);
+      });
+    } catch(err) {
+      alert('로그인 실패' + err);
+    }
+        // event.preventDefault();
+        // try {
+        //   await dispatch(fetchLogin({ email, password }))
+        //   .unwrap()
+        //   .then((res) => {
+        //     console.log(res);
+        //     alert('로그인 성공! ');
+        //   })
+        //   .catch((err) => {
+        //     alert(err);
+        //   })
+        //   // const result = await dispatch(fetchLogin({ email, password })).unwrap();
+          
+        // } catch (err) {
+        //   alert('로그인 실패: ' + err);
+        // }
   }
 
   return (

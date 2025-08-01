@@ -38,7 +38,7 @@ export const fetchSignUp = createAsyncThunk(
     return {token: response.data.uid };
     } catch (error) {
       console.error('회원가입 중 오류 발생', error);
-      return rejectWithValue(error.response?.data?.message || '회원가입 실패');
+      return rejectWithValue(error.response?.data?.message || '이메일이 중복되거나 부정확합니다.');
     }
 
   }
@@ -57,7 +57,7 @@ export const fetchLogin = createAsyncThunk(
     return {token: response.data.idToken };
     } catch (error) {
       console.error('로그인 중 오류 발생', error);
-      return rejectWithValue(error.response?.data?.message || '로그인 실패');
+      return rejectWithValue(error.response?.data?.message || '이메일 또는 비밀번호를 확인하십시오.');
     }
 
   }

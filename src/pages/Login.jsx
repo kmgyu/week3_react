@@ -26,8 +26,16 @@ function Login() {
     event.preventDefault();
     try {
       await dispatch(fetchLogin({ email, password }))
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+        alert('로그인 성공! ');
+      })
+      .catch((err) => {
+        alert(err);
+      })
       // const result = await dispatch(fetchLogin({ email, password })).unwrap();
-      alert('로그인 성공! ');
+      
     } catch (err) {
       alert('로그인 실패: ' + err);
     }
