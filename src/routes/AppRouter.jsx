@@ -6,6 +6,7 @@ import SubPage from '@/pages/SubPage';
 import Login from '@/pages/Login';
 import OrderPage from '@/pages/Order';
 import SignUp from '@/pages/SignUp';
+import { News } from '../pages/News';
 
 function AppRouter() {
   return (
@@ -15,6 +16,7 @@ function AppRouter() {
     <Route path="/signup" element={<SignUp/>} />
     <Route path="/subpage" element={<SubPage />} />
     <Route path="/order" element={<OrderPage />} />
+    <Route path="/news" element={<News />} />
     {/* 404 Not Found 페이지 (선택 사항) */}
     <Route path="*" element={
         <div className="flex-1 flex items-center justify-center p-6">
