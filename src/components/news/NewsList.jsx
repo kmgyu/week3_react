@@ -1,51 +1,65 @@
 import React, { useEffect, useState } from 'react';
 import NewsItem from '@/components/news/NewsItem';
-import { getNewsArticle } from '../../utils/news-api';
+import { getNewsArticle } from '@/utils/news-api';
 
-const sampleArticle = {
-  title: '제목',
-  description: '내용',
-  url: 'https://google.com',
-  urlToImage: 'https://via.placeholder.com/160'
-};
+function NewsList() {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(''); // 사용자 검색어 상태
 
-function NewsList () {
-    const [articles, setArticles] = useState(null);
-    const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await getNewsArticle();
+        setArticles(response);
+      } catch (e) {
+        console.error('뉴스 API 오류:', e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
-    useEffect(() => {
-        const newsData = async() => {
-            try {
-                const response = await getNewsArticle();
-                setArticles(response);
-                console.log(articles);
-            } catch(e) {
-                console.log(e);
-            }
-            setLoading(false);
-        };
-        newsData();
-    }, []);
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
-        // 대기 중일 때
-    if(loading) {
-        return (
-        <div className="box-border pb-12 w-[768px] mx-auto mt-8 px-0 sm:w-full sm:px-4">
-            대기 중...
-        </div>);
-    }
-    // 아직 articles 값이 설정되지 않았을 때
-    if(!articles) {
-        return null;
-    }
-
+  // 필터링된 기사들
+  const filteredArticles = articles.filter((article) => {
+    const keyword = searchTerm.toLowerCase();
     return (
-        <div className="box-border pb-12 w-[768px] mx-auto mt-8 px-0 sm:w-full sm:px-4">
-            {articles.map(article => (
-                <NewsItem key={article.url} article={article} />
-            ))}
-        </div>
+      article.title?.toLowerCase().includes(keyword) ||
+      article.description?.toLowerCase().includes(keyword)
     );
-};
+  });
+
+  if (loading) {
+    return (
+      <div className="w-[768px] mx-auto mt-8 px-4">로딩 중...</div>
+    );
+  }
+
+  return (
+    <div className="w-[768px] mx-auto mt-8 px-4 sm:w-full">
+      <input
+        type="text"
+        placeholder="검색어를 입력하세요"
+        value={searchTerm}
+        onChange={handleChange}
+        className="w-full mb-6 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring focus:ring-blue-300 dark:bg-gray-900 dark:text-white transition"
+      />
+
+      {filteredArticles.length === 0 ? (
+        <div className="text-gray-500 dark:text-gray-400">검색 결과가 없습니다.</div>
+      ) : (
+        filteredArticles.map((article) => (
+          <NewsItem key={article.url} article={article} />
+        ))
+      )}
+    </div>
+  );
+}
 
 export default NewsList;
