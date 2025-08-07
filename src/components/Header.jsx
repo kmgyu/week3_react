@@ -23,6 +23,9 @@ function Header() {
           <Link to="/" className="text-2xl font-bold text-primary">goorm shop</Link>
           <div className="flex gap-4">
             <Button variant="contained" className="btn btn-outline btn-sm">
+              <Link to="/news" >테크 뉴스</Link>
+            </Button>
+            <Button variant="contained" className="btn btn-outline btn-sm">
               <Link to="/order" >장바구니</Link>
             </Button>
             <Button variant="contained" className="btn btn-outline btn-sm">
@@ -42,6 +45,9 @@ function Header() {
         <div className="container mx-auto px-4 flex justify-between items-center w-full">
           <Link to="/" className="text-2xl font-bold text-primary">goorm shop</Link>
           <div className="flex gap-4">
+            <Button variant="contained" className="btn btn-outline btn-sm">
+              <Link to="/news" >테크 뉴스</Link>
+            </Button>
             <Link to="/subpage" className="btn btn-outline btn-sm">서브 페이지로 이동</Link>
             <Link to="/login" className="btn btn-primary btn-sm">로그인</Link>
           </div>
