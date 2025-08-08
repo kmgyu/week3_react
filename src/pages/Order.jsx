@@ -3,7 +3,7 @@ import { submitOrder } from '@/stores/slices/orderSlice';
 import { useNavigate } from 'react-router-dom';
 import ProductQtyCard from '../components/order/ProductQtyCard';
 
-function OrderPage() {
+function Order() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -37,4 +37,4 @@ function OrderPage() {
   );
 }
 
-export default OrderPage;
+export default Order;

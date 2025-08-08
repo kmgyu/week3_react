@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from '@/pages/Home';
 import SubPage from '@/pages/SubPage';
 import Login from '@/pages/Login';
-import OrderPage from '@/pages/Order';
+import Order from '@/pages/Order';
 import SignUp from '@/pages/SignUp';
 import { News } from '../pages/News';
 
@@ -15,7 +15,7 @@ function AppRouter() {
     <Route path="/login" element={<Login/>} />
     <Route path="/signup" element={<SignUp/>} />
     <Route path="/subpage" element={<SubPage />} />
-    <Route path="/order" element={<OrderPage />} />
+    <Route path="/order" element={<Order />} />
     <Route path="/news" element={<News />} />
     {/* 404 Not Found 페이지 (선택 사항) */}
     <Route path="*" element={
