@@ -1,5 +1,5 @@
 export default {
-  testEnvironment: 'jsdom',
+  testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['<rootDir>/src/tests/setupTests.js'],
   transform: {
     '^.+\\.[jt]sx?$': 'babel-jest'

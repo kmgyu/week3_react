@@ -1,3 +1,4 @@
+// Order.test.jsx
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -6,28 +7,36 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
 import Order from '@/pages/Order';
-import orderReducer, { submitOrder } from '@/stores/slices/orderSlice';
+
+// 핵심: default 리듀서 + 네임스페이스 동시 임포트
+import orderReducer, * as orderSlice from '@/stores/slices/orderSlice';
 import authReducer from '@/stores/slices/authSlice';
 
-// submitOrder 액션 크리에이터 spy
-jest.mock('@/stores/slices/orderSlice', () => {
-  const originalModule = jest.requireActual('@/stores/slices/orderSlice');
-  return {
-    ...originalModule,
-    submitOrder: jest.fn((payload) => ({
-      type: 'order/submitOrder',
-      payload
-    })),
-  };
+// window.alert mock (파일 초반에)
+beforeAll(() => {
+  window.alert = jest.fn();
 });
 
-function renderWithProviders(ui, { preloadedState, store = configureStore({
-  reducer: {
-    order: orderReducer,
-    auth: authReducer,
-  },
-  preloadedState,
-}), route = '/' } = {}) {
+// submitOrder만 spy (원본 모듈에 대해)
+beforeEach(() => {
+  jest.restoreAllMocks(); // 각 테스트 초기화
+  jest.spyOn(orderSlice, 'submitOrder').mockImplementation((payload) => ({
+    type: 'order/submitOrder',
+    payload,
+  }));
+});
+
+function renderWithProviders(
+  ui,
+  {
+    preloadedState,
+    store = configureStore({
+      reducer: { order: orderReducer, auth: authReducer },
+      preloadedState,
+    }),
+    route = '/',
+  } = {}
+) {
   return render(
     <Provider store={store}>
       <MemoryRouter initialEntries={[route]}>
@@ -47,41 +56,33 @@ describe('Order (integration)', () => {
   };
   const authToken = 'uid_abc123';
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  test('장바구니 항목이 화면에 표시되고, 주문 제출 시 store에 액션이 dispatch되며 라우팅된다', async () => {
+  test('장바구니 렌더/제출/라우팅', async () => {
     const preloadedState = {
-      order: { pendingCart },
+      order: { pendingCart, orderHistory: [] },
       auth: { token: authToken },
     };
 
     const user = userEvent.setup();
-
     renderWithProviders(<Order />, { preloadedState, route: '/order' });
 
-    // 장바구니 항목 렌더링 확인
+    // 렌더 확인
     expect(screen.getByText('사과')).toBeInTheDocument();
     expect(screen.getByText('바나나')).toBeInTheDocument();
 
-    // 주문 버튼 클릭
+    // 제출
     await user.click(screen.getByRole('button', { name: '주문 완료' }));
 
-    // submitOrder가 올바른 payload로 호출됐는지 확인
     const items = Object.values(pendingCart);
-    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    expect(submitOrder).toHaveBeenCalledWith({ userId: authToken, items, total });
+    const total = items.reduce((s, i) => s + i.price * i.quantity, 0);
 
-    // alert 호출 확인
+    // spy 된 액션이 올바른 payload로 호출됐는지
+    expect(orderSlice.submitOrder).toHaveBeenCalledWith({
+      userId: authToken,
+      items,
+      total,
+    });
+
     expect(window.alert).toHaveBeenCalledWith('주문이 완료되었습니다!');
-
-    // navigate('/') 동작 확인 → 라우터의 "/" 페이지로 이동
     expect(screen.getByText('홈')).toBeInTheDocument();
   });
-});
-
-// window.alert mock
-beforeAll(() => {
-  window.alert = jest.fn();
 });
