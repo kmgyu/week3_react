@@ -6,7 +6,9 @@ import SubPage from '@/pages/SubPage';
 import Login from '@/pages/Login';
 import Order from '@/pages/Order';
 import SignUp from '@/pages/SignUp';
-import { News } from '../pages/News';
+import { News } from '@/pages/News';
+import EmotionDesignSandbox from '@/pages/DesignSandbox.emotion';
+import StyledDesignSandbox from '@/pages/DesignSandbox.styled';
 
 function AppRouter() {
   return (
@@ -17,6 +19,8 @@ function AppRouter() {
     <Route path="/subpage" element={<SubPage />} />
     <Route path="/order" element={<Order />} />
     <Route path="/news" element={<News />} />
+    <Route path="/emotion" element={<EmotionDesignSandbox />} />
+    <Route path="/styled" element={<StyledDesignSandbox />} />
     {/* 404 Not Found 페이지 (선택 사항) */}
     <Route path="*" element={
         <div className="flex-1 flex items-center justify-center p-6">

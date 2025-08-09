@@ -16,7 +16,6 @@ function Header() {
   };
 
 
-  if (token) { // logged in
     return (
         <header className="navbar bg-base-100 shadow sticky top-0 z-50">
         <div className="container mx-auto px-4 flex justify-between items-center w-full">
@@ -31,30 +30,27 @@ function Header() {
             <Button variant="contained" className="btn btn-outline btn-sm">
               <Link to="/subpage">서브 페이지로 이동</Link>
             </Button>
-            <Button onClick={handleLogout} className="btn btn-primary btn-sm" variant="contained">
-              로그아웃
-            </Button>
-          </div>
-        </div>
-      </header>
 
-    );
-  } else {
-    return (
-      <header className="navbar bg-base-100 shadow sticky top-0 z-50">
-        <div className="container mx-auto px-4 flex justify-between items-center w-full">
-          <Link to="/" className="text-2xl font-bold text-primary">goorm shop</Link>
-          <div className="flex gap-4">
-            <Button variant="contained" className="btn btn-outline btn-sm">
-              <Link to="/news" >테크 뉴스</Link>
+            <Button className="btn btn-outline btn-sm">
+              <Link to="/emotion">EMOTION</Link>
             </Button>
-            <Link to="/subpage" className="btn btn-outline btn-sm">서브 페이지로 이동</Link>
-            <Link to="/login" className="btn btn-primary btn-sm">로그인</Link>
+            <Button className="btn btn-outline btn-sm">
+              <Link to="/styled">STYLED</Link>
+            </Button>
+
+            {token ? 
+              <Link to="/login" className="btn btn-primary btn-sm">로그인</Link>
+            :
+              <Button  utton onClick={handleLogout} className="btn btn-primary btn-sm" variant="contained">
+                로그아웃
+              </Button>
+            }
+
+
           </div>
         </div>
       </header>
-    );
-  }
+    )
 
 }
 
