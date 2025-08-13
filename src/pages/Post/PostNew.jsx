@@ -1,6 +1,6 @@
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addPost } from '@/components/posts/postsSlice';
+import { addPost } from '@/stores/slices/postsSlice';
 import PostForm from '@/components/posts/PostForm';
 import { useNavigate } from 'react-router-dom';
 export default function PostNew() {
