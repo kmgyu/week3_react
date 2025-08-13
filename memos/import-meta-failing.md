@@ -1,0 +1,1 @@
+https://dev.to/rubymuibi/jest-and-vite-cannot-use-importmeta-outside-a-module-24n3
