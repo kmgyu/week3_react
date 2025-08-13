@@ -1,5 +1,0 @@
-/* 사용자 정의 스타일 (필요시 추가) */
-.card figure img {
-height: 12rem; /* 이미지 높이 고정 */
-object-fit: cover;
-}
