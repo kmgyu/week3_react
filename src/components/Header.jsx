@@ -37,6 +37,9 @@ function Header() {
             <Button className="btn btn-outline btn-sm">
               <Link to="/styled">STYLED</Link>
             </Button>
+            <Button className="btn btn-outline btn-sm">
+              <Link to="/posts">게시판</Link>
+            </Button>
 
             {token ? 
               <Link to="/login" className="btn btn-primary btn-sm">로그인</Link>
