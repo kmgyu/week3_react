@@ -1,8 +1,8 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editPost, loadPost } from '@/features/posts/postsSlice';
-import PostForm from '@/features/posts/components/PostForm';
+import { editPost, loadPost } from '@/stores/slices/postsSlice';
+import PostForm from '@/components/posts/PostForm';
 import { useNavigate, useParams } from 'react-router-dom';
 export default function PostEdit() {
   const { id } = useParams();

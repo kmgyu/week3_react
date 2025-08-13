@@ -1,4 +1,4 @@
 
 // src/pages/PostView.jsx
-import PostDetail from '@/features/posts/components/PostDetail';
+import PostDetail from '@/components/posts/PostDetail';
 export default function PostView(){ return <PostDetail />; }

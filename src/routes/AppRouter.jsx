@@ -9,10 +9,10 @@ import SignUp from '@/pages/SignUp';
 import { News } from '@/pages/News';
 import EmotionDesignSandbox from '@/pages/DesignSandbox.emotion';
 import StyledDesignSandbox from '@/pages/DesignSandbox.styled';
-import PostsPage from '@/pages/post/PostsPage';
-import PostNewPage from '@/pages/post/PostNewPage';
-import PostEditPage from '@/pages/post/PostEditPage';
-import PostViewPage from '@/pages/post/PostViewPage';
+import Posts from '@/pages/post/Posts';
+import PostNew from '@/pages/post/PostNew';
+import PostEdit from '@/pages/post/PostEdit';
+import PostView from '@/pages/post/PostView';
 
 
 function AppRouter() {
@@ -26,10 +26,10 @@ function AppRouter() {
     <Route path="/news" element={<News />} />
     <Route path="/emotion" element={<EmotionDesignSandbox />} />
     <Route path="/styled" element={<StyledDesignSandbox />} />
-    <Route path="/posts" element={<PostsPage />} />
-    <Route path="/posts/new" element={<PostNewPage />} />
-    <Route path="/posts/:id" element={<PostViewPage />} />
-    <Route path="/posts/:id/edit" element={<PostEditPage />} />
+    <Route path="/posts" element={<Posts />} />
+    <Route path="/posts/new" element={<PostNew />} />
+    <Route path="/posts/:id" element={<PostView />} />
+    <Route path="/posts/:id/edit" element={<PostEdit />} />
     {/* 404 Not Found 페이지 (선택 사항) */}
     <Route path="*" element={
         <div className="flex-1 flex items-center justify-center p-6">

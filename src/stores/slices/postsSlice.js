@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchPosts, fetchPost, createPost, updatePost, deletePost } from './api';
+import { fetchPosts, fetchPost, createPost, updatePost, deletePost } from '@/utils/post-api';
 
 export const loadPosts = () => async (dispatch) => {
   dispatch(actions.setLoading(true));

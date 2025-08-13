@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadPosts, removePost } from '../postsSlice';
+import { loadPosts, removePost }  from '@/stores/slices/postsSlice';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function PostsList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { list, loading, error } = useSelector((s) => s.post);
+  const { list, loading, error } = useSelector((s) => s.post || { list: [], loading: false, error: null });
 
   useEffect(() => { dispatch(loadPosts()); }, [dispatch]);
 

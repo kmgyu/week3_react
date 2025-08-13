@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadPost } from '../postsSlice';
+import { loadPost } from '@/stores/slices/postsSlice';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export default function PostDetail() {
